@@ -412,7 +412,9 @@ def AdminLoginAction(request):
         global user_status
         username = request.POST.get('username', False)
         password = request.POST.get('password', False)
-        if username=='admin' and password=='admin':
+        admin_username = os.environ.get('ADMIN_USERNAME')
+        admin_password = os.environ.get('ADMIN_PASSWORD')
+        if admin_username and admin_password and username == admin_username and password == admin_password:
             context= {'data':"Welcome "+username}
             return render(request, 'AdminScreen.html', context)
         else:
